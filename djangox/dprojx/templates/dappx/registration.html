@@ -1,0 +1,20 @@
+{% extends "dappx/base.html" %}
+{% load static %}
+{% block body_block %}
+  <div class="container">
+    <div class="jumbotron">
+      {% if registered %}
+        <h1>Thank you for registering!</h1>
+      {% else %}
+        <h1>Register:</h1>
+<form enctype="multipart/form-data" method="POST">
+          {% csrf_token %}
+          {{ user_form.as_p }}
+          {{ info_form }}
+          <br>
+          <input type="submit" name="" value="Register">
+        </form>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}
