@@ -4,9 +4,33 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from square.client import Client
+import uuid
 
 def index(request):
     return render(request,'dappx/index.html')
+
+# TODO: add login_required
+def payments(request):
+    if request.method == 'POST':
+        nonce = request.POST.get("nonce")
+        access_token = "EAAAEIH1Nl_wGkMWzrIOCBTihP5VLjVvKc1r8ZCEDwE-T_O2-eCkAqHb3b6pnbRm"
+        environment = "sandbox"
+        client = Client(access_token=access_token, environment=environment)
+        idempotency_key = str(uuid.uuid1())
+
+        amount = {'amount': 100, 'currency': 'USD'}
+        body = {'idempotency_key': idempotency_key, 'source_id': nonce, 'amount_money': amount}
+        api_response = client.payments.create_payment(body)
+        if api_response.is_success():
+            res = api_response.body['payment']
+        elif api_response.is_error():
+            res = "Exception when calling PaymentsApi->create_payment: {}".format(api_response.errors)
+        print(res)
+
+        return render(request, 'dappx/index.html')
+    else:
+        return render(request, 'dappx/payments.html')
 
 @login_required
 def special(request):
