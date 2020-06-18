@@ -85,4 +85,5 @@ def user_login(request):
 def profile(request):
     return render(request, 'dappx/profile.html')
 
-
+def transactions(request):
+    return render(request, 'dappx/transactions.html')
