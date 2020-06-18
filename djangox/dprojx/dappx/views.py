@@ -81,3 +81,8 @@ def user_login(request):
             return HttpResponse("Invalid login details given")
     else:
         return render(request, 'dappx/login.html', {})
+
+def profile(request):
+    return render(request, 'dappx/profile.html')
+
+
