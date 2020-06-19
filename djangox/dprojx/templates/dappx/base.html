@@ -26,9 +26,14 @@
           <li><a class="navbar-brand" href="{% url 'index' %}">SquareHacks</a></li>
           {% if user.is_authenticated %}
             <li><a class="navbar-link" href="{% url 'dappx:profile' %}">Profile</a></li>
+            {% if request.user.groups.all.0.name == 'Contractor' %}
+            <li><a class="navbar-link" href="{% url 'index' %}">Notes</a></li>
             <li><a class="navbar-link" href="{% url 'dappx:transactions' %}">Transactions</a></li>
-            <li><a class="navbar-link" href="{% url 'index' %}">Friends</a></li>
-            <li><a class="navbar-link" href="{% url 'dappx:payments' %}">Payments</a></li>
+            {% endif %}
+            {% if request.user.groups.all.0.name == 'Client' %}
+              <li><a class="navbar-link" href="{% url 'index' %}">Friends</a></li>
+              <li><a class="navbar-link" href="{% url 'dappx:payments' %}">Payments</a></li>
+            {% endif %}
             <li><a href="{% url 'logout' %}">Logout</a></li>
           {% else %}
             <li><a class="navbar-link" href="{% url 'dappx:register' %}">Register</a></li>
