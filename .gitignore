@@ -6,3 +6,6 @@ recommender/yelp_dataset/
 
 # Jupyter notebook checkpoints
 .ipynb_checkpoints
+
+# data
+*.csv
