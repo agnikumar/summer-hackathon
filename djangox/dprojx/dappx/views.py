@@ -87,3 +87,7 @@ def profile(request):
 
 def transactions(request):
     return render(request, 'dappx/transactions.html')
+
+def notes(request):
+    return render(request, 'dappx/notes.html')
+
