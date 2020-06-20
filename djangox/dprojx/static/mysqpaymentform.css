@@ -82,6 +82,10 @@ fieldset {
   margin-bottom: 16px;
 }
 
+#recipient {
+  margin-bottom: 16px;
+}
+
 /* Customize the "Pay with Credit Card" button */
 .button-credit-card {
   width: 100%;

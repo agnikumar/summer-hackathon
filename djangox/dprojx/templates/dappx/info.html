@@ -1,0 +1,29 @@
+{% extends "dappx/base.html" %}
+{% load static %}
+{% block body_block %}
+
+  <div class="container">
+    <div class="jumbotron">
+        {% if user_type == "CL" %}
+        <h3>Client Info Form</h3>
+        {% else %}
+        <h3>Contractor Info Form</h3>
+        {% endif %}
+        <form enctype="multipart/form-data" method="POST" action="{% url 'dappx:info' %}">
+          {% csrf_token %}
+          {% for field in info_form %}
+            <div class="form-group">
+            <label class="col-sm-4 control-label" for="{{ field.name }}">{{ field.label }} : </label>
+            <div class="col-sm-8">
+                {{ field }}
+            </div> <br>
+            </div>
+          {% endfor %} <br>
+          <input type="submit" name="" value="Submit">
+          <input type="hidden" value={{user.username}} name="username">
+          <input type="hidden" value={{user.password}} name="password">
+        </form>
+    </div>
+  </div>
+  
+{% endblock %}

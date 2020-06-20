@@ -1,11 +1,13 @@
 from django.shortcuts import render
-from dappx.forms import UserForm, UserProfileInfoForm
+from dappx.forms import UserForm, UserProfileInfoForm, ClientInfoForm, ContractorInfoForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from square.client import Client
+from django.contrib.auth.models import User, Group
 import uuid
+from dappx.models import Client, Contractor
 
 def index(request):
     return render(request,'dappx/index.html')
@@ -13,6 +15,8 @@ def index(request):
 # TODO: add login_required
 def payments(request):
     if request.method == 'POST':
+        recipient = request.POST.get("recipient")
+        print(recipient)
         nonce = request.POST.get("nonce")
         access_token = "EAAAEIH1Nl_wGkMWzrIOCBTihP5VLjVvKc1r8ZCEDwE-T_O2-eCkAqHb3b6pnbRm"
         environment = "sandbox"
@@ -43,6 +47,7 @@ def user_logout(request):
 
 def register(request):
     registered = False
+    user_type = None
     if request.method == 'POST':
         user_form = UserForm(data=request.POST)
         info_form = UserProfileInfoForm()
@@ -54,12 +59,52 @@ def register(request):
             info.user = user
             info.save()
             registered = True
+            user_type = request.POST.get("user_type")
+            if user_type == "CL":
+                group, created = Group.objects.get_or_create(name='Client')
+                user.groups.add(group)
+                return render(request,'dappx/info.html', {'user_type': user_type, 'info_form': ClientInfoForm(), 'user': user})
+            else:
+                group, created = Group.objects.get_or_create(name='Contractor')
+                user.groups.add(group)
+                return render(request,'dappx/info.html', {'user_type': user_type, 'info_form': ContractorInfoForm(), 'user': user})
         else:
             print(user_form.errors)
             print(info_form.errors)
+            return render(request,'dappx/registration.html',
+                          {'user_form':user_form, 'info_form': info_form,
+                           'registered':registered})
     else:
         user_form = UserForm()
         info_form = UserProfileInfoForm()
+        return render(request,'dappx/registration.html',
+                          {'user_form':user_form, 'info_form': info_form,
+                           'registered':registered})
+
+
+def info(request):
+    # client
+    name = request.POST.get("name")
+    business_id = request.POST.get("business_id")
+    address = request.POST.get("address")
+    state = request.POST.get("state")
+    city = request.POST.get("state")
+    postal_code = request.POST.get("postal_code")
+
+    username  = request.POST.get("username")
+    user = User.objects.get(username=username)
+
+    if business_id is None:
+        client = Client.objects.create(user=user, name=name, state=state, city=city, postal_code=postal_code)
+        client.save()
+    else:
+        contractor = Contractor.objects.create(user=user, name=name, state=state, city=city, postal_code=postal_code, business_id=business_id, address=address)
+        contractor.save()
+
+    print("Created")
+    registered = True
+    user_form = UserForm()
+    info_form = UserProfileInfoForm()
     return render(request,'dappx/registration.html',
                           {'user_form':user_form, 'info_form': info_form,
                            'registered':registered})

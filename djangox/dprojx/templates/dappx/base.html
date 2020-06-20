@@ -15,6 +15,15 @@
     <script type="text/javascript" src="https://js.squareupsandbox.com/v2/paymentform">
     </script>
 
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
     <!-- link to the local custom styles for SqPaymentForm -->
     <link rel="stylesheet" type="text/css" href="/static/mysqpaymentform.css">
 </head>
@@ -31,6 +40,7 @@
             <li><a class="navbar-link" href="{% url 'dappx:transactions' %}">Transactions</a></li>
             {% endif %}
             {% if request.user.groups.all.0.name == 'Client' %}
+              <li><a class="navbar-link" href="{% url 'index' %}">Search</a></li>
               <li><a class="navbar-link" href="{% url 'index' %}">Friends</a></li>
               <li><a class="navbar-link" href="{% url 'dappx:payments' %}">Payments</a></li>
             {% endif %}

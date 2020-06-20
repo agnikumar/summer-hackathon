@@ -1,5 +1,5 @@
 from django import forms
-from dappx.models import UserProfileInfo
+from dappx.models import UserProfileInfo, Client, Contractor
 from django.contrib.auth.models import User
 
 
@@ -23,3 +23,15 @@ class UserProfileInfoForm(forms.ModelForm):
     class Meta():
         model = UserProfileInfo
         fields = ("user_type",)
+
+class ClientInfoForm(forms.ModelForm):
+    
+    class Meta():
+         model = Client
+         fields = ("name", "city", "state", "postal_code")
+
+class ContractorInfoForm(forms.ModelForm):
+    
+    class Meta():
+         model = Contractor
+         fields = ("name", "business_id", "address", "city", "state", "postal_code")
