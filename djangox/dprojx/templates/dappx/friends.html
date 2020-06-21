@@ -2,6 +2,103 @@
 {% load static %}
 {% block body_block %}
 
+<!-- <link rel="stylesheet" href="{% static 'css/friends.css' %}"> -->
 
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.grid-container {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: auto auto auto auto;
+  /*background-color: #2196F3;*/
+  padding: 10px;
+}
+
+.grid-item {
+  /*background-color: rgba(255, 255, 255, 0.8);*/
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  padding: 30px;
+  font-size: 20px;
+  text-align: center;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+</style>
+</head>
+<body>
+
+<h1>Friends</h1>
+</br>
+
+<div class="grid-container">
+  <div class="grid-item">
+	<img src="{% static 'images/friends/1.png' %}" style="width:75%"/>
+	Noah</div>
+
+  <div class="grid-item">
+  	<img src="{% static 'images/friends/2.png' %}" style="width:75%"/>
+  Sophia</div>
+
+  <div class="grid-item">
+  	<img src="{% static 'images/friends/3.png' %}" style="width:75%"/>
+  Liam</div>
+
+  <div class="grid-item">
+  	<img src="{% static 'images/friends/4.png' %}" style="width:75%"/>
+  Emma</div>
+
+  <div class="grid-item">
+  	<img src="{% static 'images/friends/5.png' %}" style="width:75%"/>
+  Olivia</div>
+
+  <div class="grid-item">
+  	<img src="{% static 'images/friends/6.png' %}" style="width:75%"/>
+  William</div>  
+
+  <div class="grid-item">
+  	<img src="{% static 'images/friends/7.png' %}" style="width:75%"/>
+  Isabella</div>
+
+  <div class="grid-item">
+  	<img src="{% static 'images/friends/8.png' %}" style="width:75%"/>
+  Mason</div>
+
+  <div class="grid-item">
+  	<img src="{% static 'images/friends/9.png' %}" style="width:75%"/>
+  James</div>  
+
+  <div class="grid-item">
+  	<img src="{% static 'images/friends/10.png' %}" style="width:75%"/>
+  Ava</div> 
+
+  <div class="grid-item">
+  	<img src="{% static 'images/friends/11.png' %}" style="width:75%"/>
+  Benjamin</div>  
+
+  <div class="grid-item">
+  	<img src="{% static 'images/friends/12.png' %}" style="width:75%"/>
+  Mia</div>  
+
+  <div class="grid-item">
+  	<img src="{% static 'images/friends/13.png' %}" style="width:75%"/>
+  Emily</div>  
+
+  <div class="grid-item">
+  	<img src="{% static 'images/friends/14.png' %}" style="width:75%"/>
+  Jacob</div>  
+
+  <div class="grid-item">
+  	<img src="{% static 'images/friends/15.png' %}" style="width:75%"/>
+  Abigail</div>  
+
+  <div class="grid-item">
+  	<img src="{% static 'images/friends/16.png' %}" style="width:75%"/>
+  Edward</div>  
+</div>
+
+</body>
+</html>
 
 {% endblock %}
