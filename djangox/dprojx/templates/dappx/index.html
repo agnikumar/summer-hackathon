@@ -4,15 +4,14 @@
 
 <div class="container">
   <div class="jumbotron">
-    <h1>Welcome to Square Hacks!</h1>
+    <h1>Welcome to SmallTalk!</h1>
     {% if user.is_authenticated %}
-        <h2>Hello {{ user.username }}</h2>
+        <h2>Hello, {{ user.username }}</h2>
     {% else %}
-        <h2>Please register or login to use our service</h2>
+        <h2>Please register or login to use our service.</h2>
     {% endif %}
   </div>
-</div>
- 
+</div> 
 
 <!--
 <!DOCTYPE html>
@@ -33,11 +32,13 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'css/util.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
 
+	<link rel="stylesheet" type="text/css" href="{% static 'css/temporary.css' %}">
+
 </head>
-<body>
+<body> 
 	
 	<div class="limiter">
-		<div class="container-login100" style="background-image: url('{% static 'images/bg.jpg' %}');">
+		<div class="container-login100" style="background-image: url('{% static 'images/bg.jpg' %}'); height: 100%;">
 			<div class="wrap-login100 p-l-110 p-r-110 p-t-62 p-b-33">
 				<form class="login100-form validate-form flex-sb flex-w" style="font-size: 50px">
 					<span class="login100-form-title p-b-53">
