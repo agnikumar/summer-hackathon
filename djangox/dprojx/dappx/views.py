@@ -37,6 +37,13 @@ def payments(request):
         return render(request, 'dappx/payments.html')
 
 @login_required
+def search(request):
+    vals = Contractor.objects.values_list("categories", flat=True).distinct()
+    values = [x[0] for x in vals]
+    print(values)
+    return render(request, 'dappx/search.html', {'categories': values})
+
+@login_required
 def special(request):
     return HttpResponse("You are logged in !")
 
@@ -98,7 +105,7 @@ def info(request):
         client = Client.objects.create(user=user, name=name, state=state, city=city, postal_code=postal_code)
         client.save()
     else:
-        contractor = Contractor.objects.create(user=user, name=name, state=state, city=city, postal_code=postal_code, business_id=business_id, address=address)
+        contractor = Contractor.objects.create(user=user, name=name, state=state, city=city, postal_code=postal_code, business_id=business_id, address=address, stars=0, review_count=0, categories=[])
         contractor.save()
 
     print("Created")

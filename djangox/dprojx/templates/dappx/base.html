@@ -40,7 +40,7 @@
             <li><a class="navbar-link" href="{% url 'dappx:transactions' %}">Transactions</a></li>
             {% endif %}
             {% if request.user.groups.all.0.name == 'Client' %}
-              <li><a class="navbar-link" href="{% url 'index' %}">Search</a></li>
+              <li><a class="navbar-link" href="{% url 'dappx:search' %}">Search</a></li>
               <li><a class="navbar-link" href="{% url 'index' %}">Friends</a></li>
               <li><a class="navbar-link" href="{% url 'dappx:payments' %}">Payments</a></li>
             {% endif %}

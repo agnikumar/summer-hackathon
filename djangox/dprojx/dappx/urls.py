@@ -12,4 +12,5 @@ urlpatterns=[
     url(r'^transactions/$', views.transactions,name='transactions'),
     url(r'^notes/$', views.notes,name='notes'),
     url(r'^info/$', views.info,name='info'),
+    url(r'^search/$', views.search,name='search'),
 ]
