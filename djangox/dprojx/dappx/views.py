@@ -143,3 +143,6 @@ def transactions(request):
 def notes(request):
     return render(request, 'dappx/notes.html')
 
+def friends(request):
+    return render(request, 'dappx/friends.html')
+

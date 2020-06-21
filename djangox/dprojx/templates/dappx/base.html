@@ -32,7 +32,7 @@
       <div class="container">
         <ul class="nav navbar-nav">
 {# Django Home Link / Admin Link / Register Link#}
-          <li><a class="navbar-brand" href="{% url 'index' %}">SquareHacks</a></li>
+          <li><a class="navbar-brand" href="{% url 'index' %}">SmallTalk</a></li>
           {% if user.is_authenticated %}
             <li><a class="navbar-link" href="{% url 'dappx:profile' %}">Profile</a></li>
             {% if request.user.groups.all.0.name == 'Contractor' %}
@@ -41,7 +41,7 @@
             {% endif %}
             {% if request.user.groups.all.0.name == 'Client' %}
               <li><a class="navbar-link" href="{% url 'dappx:search' %}">Search</a></li>
-              <li><a class="navbar-link" href="{% url 'index' %}">Friends</a></li>
+              <li><a class="navbar-link" href="{% url 'dappx:friends' %}">Friends</a></li>
               <li><a class="navbar-link" href="{% url 'dappx:payments' %}">Payments</a></li>
             {% endif %}
             <li><a href="{% url 'logout' %}">Logout</a></li>
