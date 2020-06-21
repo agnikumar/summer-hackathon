@@ -16,6 +16,12 @@ class UserProfileInfo(models.Model):
   def get_type(self):
     return self.user_type
 
+class Transaction(models.Model):
+  client = models.CharField(max_length=80)
+  contractor = models.CharField(max_length=80)
+  payment = models.IntegerField()
+  date = models.DateField()
+
 class Contractor(models.Model):
   user = models.OneToOneField(User, on_delete=models.CASCADE)
   name = models.CharField(max_length=80)
