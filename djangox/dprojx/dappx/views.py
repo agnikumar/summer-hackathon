@@ -4,26 +4,29 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
-from square.client import Client
+from square.client import Client as squareClient
 from django.contrib.auth.models import User, Group
 import uuid
-from dappx.models import Client, Contractor
+from dappx.models import Client, Contractor, Transaction
+import datetime
 
 def index(request):
     return render(request,'dappx/index.html')
 
-# TODO: add login_required
+# TODO: Add in Transactions
+@login_required
 def payments(request):
     if request.method == 'POST':
+        # we have to forward to the recipient
         recipient = request.POST.get("recipient")
-        print(recipient)
+        payment = request.POST.get("payment")
         nonce = request.POST.get("nonce")
         access_token = "EAAAEIH1Nl_wGkMWzrIOCBTihP5VLjVvKc1r8ZCEDwE-T_O2-eCkAqHb3b6pnbRm"
         environment = "sandbox"
-        client = Client(access_token=access_token, environment=environment)
+        client = squareClient(access_token=access_token, environment=environment)
         idempotency_key = str(uuid.uuid1())
 
-        amount = {'amount': 100, 'currency': 'USD'}
+        amount = {'amount': int(payment), 'currency': 'USD'}
         body = {'idempotency_key': idempotency_key, 'source_id': nonce, 'amount_money': amount}
         api_response = client.payments.create_payment(body)
         if api_response.is_success():
@@ -31,6 +34,9 @@ def payments(request):
         elif api_response.is_error():
             res = "Exception when calling PaymentsApi->create_payment: {}".format(api_response.errors)
         print(res)
+
+        Transaction.objects.create(client=request.user.username, contractor=recipient, payment=payment, date=datetime.datetime.now().date())
+        print("Done")
 
         return render(request, 'dappx/index.html')
     else:
@@ -138,7 +144,8 @@ def profile(request):
     return render(request, 'dappx/profile.html')
 
 def transactions(request):
-    return render(request, 'dappx/transactions.html')
+    transactions = Transaction.objects.filter(contractor=request.user.username)
+    return render(request, 'dappx/transactions.html', {'transactions':transactions})
 
 def notes(request):
     return render(request, 'dappx/notes.html')
