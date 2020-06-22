@@ -61,6 +61,7 @@ class Contractor(models.Model):
 
 class Client(models.Model):
   user = models.OneToOneField(User, on_delete=models.CASCADE)
+  uid = models.CharField(max_length=80)
   name = models.CharField(max_length=80)
   city = models.CharField(max_length=80)
   state = models.CharField(max_length=2)

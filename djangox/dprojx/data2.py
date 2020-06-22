@@ -30,7 +30,7 @@ for path in csvs:
           user.set_password("test")
           user.save()
           user.groups.add(group)
-          client = Client.objects.create(user=user, name=row[0], city=row[2], state=row[3], postal_code=int(row[4]), friends=row[5].split(","))
+          client = Client.objects.create(user=user, name=row[0], uid=row[1], city=row[2], state=row[3], postal_code=int(row[4]), friends=row[5].split(","))
           client.save()
           print(count)
           if count == 25:
