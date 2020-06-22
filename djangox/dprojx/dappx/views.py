@@ -173,7 +173,9 @@ def add_friends(request):
     try:
         client = Client.objects.get(user=request.user)
         categories = getattr(client, "friends")
-        new_categories = categories + [Client.objects.get(name=request.POST.get("friend")).uid]
+        new_categories = [i for i in categories]
+        if Client.objects.get(name=request.POST.get("friend")).uid not in categories:
+            new_categories.append(Client.objects.get(name=request.POST.get("friend")).uid)
         client.friends = new_categories
         client.save()
         print(Client.objects.get(name=request.POST.get("friend")).uid)
