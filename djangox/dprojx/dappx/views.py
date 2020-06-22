@@ -203,7 +203,7 @@ def profile(request):
         cl = Client.objects.get(user=request.user)
         client_fields = [field.name for field in Client._meta.get_fields()]
         client_info = [getattr(cl, i) for i in client_fields]
-        new_client_info = {client_fields[i]:client_info[i] for i in range(len(client_fields)) if client_fields[i] != "user"}
+        new_client_info = {client_fields[i]:client_info[i] for i in range(len(client_fields)) if client_fields[i] not in ["user", "friends"]}
     except Exception as e:
         pass
     try:
