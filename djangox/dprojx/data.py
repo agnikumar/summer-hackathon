@@ -11,7 +11,7 @@ import csv
 from dappx.models import Contractor 
 from django.contrib.auth.models import User, Group, Permission
 
-csvs = ['contractor_data.csv']      # Csv file path  
+csvs = ['dappx/data/contractor_data.csv']      # Csv file path  
 
 for path in csvs:
   with open(path, newline='') as csvfile:
@@ -23,7 +23,7 @@ for path in csvs:
         try:
           if count > 0:
             group, created = Group.objects.get_or_create(name='Contractor')
-            user = User(username="t_contractor"+str(count))
+            user = User(username="contractor"+str(count))
             user.set_password("test")
             user.save()
             user.groups.add(group)

@@ -165,18 +165,28 @@ def user_login(request):
         return render(request, 'dappx/login.html', {})
 
 def add_friends(request):
-    client = Client.objects.get(user=request.user)
-    categories = getattr(client, "friends")
-    new_categories = categories + [request.POST.get("friend")]
-    client.friends = new_categories
-    client.save()
+    try:
+        client = Client.objects.get(user=request.user)
+        categories = getattr(client, "friends")
+        new_categories = categories + [Client.objects.get(name=request.POST.get("friend")).uid]
+        client.friends = new_categories
+        client.save()
+        print(Client.objects.get(name=request.POST.get("friend")).uid)
+    except Exception as e:
+        pass
     return HttpResponseRedirect(reverse('dappx:friends'))
 
 def remove_friends(request):
     client = Client.objects.get(user=request.user)
-    categories = getattr(client, "friends")
-    new_categories = [i for i in categories if i != request.POST.get("friend")]
-    client.friends = new_categories
+    friends = getattr(client, "friends")
+    new_friends = []
+    for i in friends:
+        try:
+            if Client.objects.get(uid=i).name != request.POST.get("friend"):
+                new_friends.append(i)
+        except Exception as e:
+            pass
+    client.friends = new_friends
     client.save()
     return HttpResponseRedirect(reverse('dappx:friends'))
 
@@ -228,21 +238,34 @@ def transactions(request):
 def notes(request):
     return render(request, 'dappx/notes.html')
 
-friends_data_path = open(os.path.dirname(os.path.realpath(__file__)) + '/data/client_data.csv', "r")
-df_friends = get_network_df(friends_data_path)
-df_friends['user_id'] = df_friends['user_id'].str.strip()
-dict_friends = dict(zip(df_friends.user_id, df_friends.name))
+#friends_data_path = open(os.path.dirname(os.path.realpath(__file__)) + '/data/client_data.csv', "r")
+#df_friends = get_network_df(friends_data_path)
+#df_friends['user_id'] = df_friends['user_id'].str.strip()
+#dict_friends = dict(zip(df_friends.user_id, df_friends.name))
 
 def friends(request):
     friends = getattr(Client.objects.get(user=request.user), "friends")
-    friends_stripped = list(map(str.strip, friends))
-    friends_names_map = list(map(dict_friends.get, friends_stripped))
-    #friends_names = ['' if x is None else x for x in friends_names_map] 
-    friends_names = [i for i in friends_names_map if i]
-    print(friends_stripped)
-    print(friends_names)
+    print("hee")
+    print(friends)
+    #friends_stripped = list(map(str.strip, friends))
+    #friends_names_map = list(map(dict_friends.get, friends_stripped))
+    #friends_names = ['' if x is None else x for x in friends_names_map]
+    #friends_names = [i for i in friends_names_map if i]
+    #print(friends_stripped)
+    #print(friends_names)
+    friend_names = []
+    for friend in friends:
+        name = ""
+        try:
+            name = Client.objects.get(uid=friend).name
+        except Exception as e:
+            pass
+        friend_names.append(name)
+    print(friend_names)
+    friends_names = [i for i in friend_names if len(i) != 0]
     #rand_int = random.randint(1,16)
     #profile_pic_path = 'images/friends/' +  str(rand_int) + '.png'
     profile_pic_path = 'images/profile-pic.jpg'
+    print(friends_names)
     return render(request, 'dappx/friends.html', {"friends":friends, "profile_pic_path":profile_pic_path, "friends_names":friends_names})
 

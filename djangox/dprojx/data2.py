@@ -12,7 +12,7 @@ from dappx.models import Client
 from django.contrib.auth.models import User, Group, Permission
 from django.contrib.contenttypes.models import ContentType
 
-csvs = ['client_data.csv']      # Csv file path  
+csvs = ['dappx/data/client_data.csv']      # Csv file path  
 
 for path in csvs:
   with open(path, newline='') as csvfile:
@@ -26,13 +26,11 @@ for path in csvs:
           permission = Permission.objects.get(content_type=content_type, codename='is_client')
           group, created = Group.objects.get_or_create(name='Client')
           group.permissions.add(permission)
-          user = User(username="client"+str(count))
+          user = User(username=row[0])
           user.set_password("test")
           user.save()
           user.groups.add(group)
           client = Client.objects.create(user=user, name=row[0], uid=row[1], city=row[2], state=row[3], postal_code=int(row[4]), friends=row[5].split(","))
           client.save()
           print(count)
-          if count == 25:
-            break
         count += 1
