@@ -25,17 +25,17 @@
   </div>
 
   <!-- output of recommender model -->
+  {% if submitted %}
   <div class="container">
     <div class="jumbotron">
-
-        <form enctype="multipart/form-data" method="POST" action="{% url 'dappx:search' %}">
-          {% csrf_token %}
-
         <h2>Recommendations</h2><br>
         <!-- <p style="font-family:Roboto, sans-serif; font-size:14px">{{output}}</p> -->
+        {% autoescape off %}
         {{output}}
-        
+        {% endautoescape %}
+
   </div>
   </div>
+  {% endif %}
   
 {% endblock %}

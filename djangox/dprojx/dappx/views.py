@@ -51,14 +51,15 @@ def search(request):
     values = [x[0] for x in vals]
     print(values)
     #############################
+    submitted = False
+    output = ''
     if request.method == 'POST':
         # calling recommender model
         submitted = True
-        output = display_word("hi") # from test.py
+        output = display_df() # from test.py
+        #return render(request, 'dappx/search.html', {'categories': values, 'output':output})
     #############################
-    output = display_df()
-    return render(request, 'dappx/search.html', {'categories': values, 'output':output})
-    #return render(output, 'dappx/search.html', {'categories': values})
+    return render(request, 'dappx/search.html', {'categories': values, 'output':output, 'submitted':submitted})
 
 @login_required
 def special(request):
