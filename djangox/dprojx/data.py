@@ -27,7 +27,7 @@ for path in csvs:
             user.set_password("test")
             user.save()
             user.groups.add(group)
-            contractor = Contractor.create(user=user, name=row[0], business_id=row[1], address=row[2], city=row[3], state=row[4], postal_code=int(row[5]), stars = float(row[6]), review_count = int(float(row[7])), categories=row[8].split(","))
+            contractor = Contractor.create(user=user, name=row[0], business_id=row[1], address=row[2], city=row[3], state=row[4], postal_code=int(row[5]), covid_safety = float(row[6]), review_count = int(float(row[7])), categories=row[8].split(","))
             contractor.save()
             print(count)
             print(row[8].split(","))

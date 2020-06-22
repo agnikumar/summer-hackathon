@@ -49,13 +49,13 @@ class Contractor(models.Model):
   city = models.CharField(max_length=80)
   state = models.CharField(max_length=2)
   postal_code = models.IntegerField()
-  stars = models.FloatField()
+  covid_safety = models.FloatField()
   review_count = models.IntegerField()
   categories = ListCharField(base_field=models.CharField(max_length=80), max_length=80)
 
   @classmethod
-  def create(cls, user=None, name=None, business_id=None, address=None, city=None, state=None, postal_code=None, stars=0, review_count=0, categories=[]):
-    contractor = cls(user=user, name=name, business_id=business_id, address=address, city=city, state=state, postal_code=postal_code, stars=stars, review_count=review_count, categories=categories)
+  def create(cls, user=None, name=None, business_id=None, address=None, city=None, state=None, postal_code=None, covid_safety =0, review_count=0, categories=[]):
+    contractor = cls(user=user, name=name, business_id=business_id, address=address, city=city, state=state, postal_code=postal_code, covid_safety = covid_safety, review_count=review_count, categories=categories)
     return contractor
 
 
