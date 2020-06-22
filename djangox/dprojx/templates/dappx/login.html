@@ -1,8 +1,15 @@
 {% extends 'dappx/base.html' %}
+{% load static %}
 {% block body_block %}
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<body style="background-image: url('{% static 'images/bg.jpg' %}'); 
+      height: 100%; background-position: center; background-repeat: no-repeat; background-size: cover;">
+
   <div class="container">
-    <div class="jumbotron">
+    <div class="jumbotron" style="border:1px solid black;">
       <h1>Login:</h1>
 <form method="post" action="{% url 'dappx:user_login' %}">
           {% csrf_token %}
@@ -15,5 +22,8 @@
 </form>
 </div>
   </div>
+
+</body>
+</html>
   
 {% endblock %}
