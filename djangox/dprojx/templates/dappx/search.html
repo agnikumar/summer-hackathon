@@ -4,7 +4,7 @@
 
   <div class="container">
     <div class="jumbotron">
-        <h2>Search by Category</h2><br>
+        <h2>Search by category</h2><br>
         <form enctype="multipart/form-data" method="POST" action="{% url 'dappx:search' %}">
           {% csrf_token %}
 
@@ -18,7 +18,24 @@
           <br>
           <input type="submit" name="" value="Submit">
         </form>
+
+
+
     </div>
+  </div>
+
+  <!-- output of recommender model -->
+  <div class="container">
+    <div class="jumbotron">
+
+        <form enctype="multipart/form-data" method="POST" action="{% url 'dappx:search' %}">
+          {% csrf_token %}
+
+        <h2>Recommendations</h2><br>
+        <!-- <p style="font-family:Roboto, sans-serif; font-size:14px">{{output}}</p> -->
+        {{output}}
+        
+  </div>
   </div>
   
 {% endblock %}

@@ -10,6 +10,9 @@ import uuid
 from dappx.models import Client, Contractor, Transaction
 import datetime
 
+from dappx.recommender import *
+from dappx.test import * # for testing purposes 
+
 def index(request):
     return render(request,'dappx/index.html')
 
@@ -47,7 +50,15 @@ def search(request):
     vals = Contractor.objects.values_list("categories", flat=True).distinct()
     values = [x[0] for x in vals]
     print(values)
-    return render(request, 'dappx/search.html', {'categories': values})
+    #############################
+    if request.method == 'POST':
+        # calling recommender model
+        submitted = True
+        output = display_word("hi") # from test.py
+    #############################
+    output = display_df()
+    return render(request, 'dappx/search.html', {'categories': values, 'output':output})
+    #return render(output, 'dappx/search.html', {'categories': values})
 
 @login_required
 def special(request):
@@ -152,4 +163,14 @@ def notes(request):
 
 def friends(request):
     return render(request, 'dappx/friends.html')
+
+'''
+def search(request):
+    submitted = False
+    #if request.method == 'POST':
+        # calling recommender model
+        #submitted = True
+        #print(test.print_word("hi"))
+    return render(request, 'dappx/search.html')
+'''
 

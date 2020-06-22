@@ -10,9 +10,14 @@ from math import radians, cos, sin, asin, sqrt
 # pd.options.mode.chained_assignment = None
 
 # loading network data
-network_df = pd.read_csv('yelp_dataset/yelp_network_data.csv')
-network_df_list = network_df
-network_df_list['friends'] = network_df_list.friends.apply(lambda x: x.split(','))
+def get_network_df(csv_path):
+    network_df = pd.read_csv('yelp_dataset/yelp_network_data.csv')
+    return network_df
+
+def get_network_df_list(network_df):
+    network_df_list = network_df
+    network_df_list['friends'] = network_df_list.friends.apply(lambda x: x.split(','))
+    return network_df_list
 
 # recommender
 
@@ -38,7 +43,7 @@ def haversine(point1, point2):
     h = 2 * AVG_EARTH_RADIUS * asin(sqrt(d))
     return h  # in kilometers
 
-def recommend(user_id, category, k):
+def recommend(network_df, network_df_list, user_id, category, k):
     user_reviews_df = network_df_list.loc[network_df['user_id'] == user_id]
     user_pos = (user_reviews_df.iloc[0]['latitude'], user_reviews_df.iloc[0]['longitude'])
     user_friends = user_reviews_df.iloc[0]['friends']
