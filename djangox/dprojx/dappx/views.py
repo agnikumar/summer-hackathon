@@ -160,6 +160,14 @@ def add_category(request):
     contractor.save()
     return HttpResponseRedirect(reverse('dappx:profile'))
 
+def remove_category(request):
+    contractor = Contractor.objects.get(user=request.user)
+    categories = getattr(contractor, "categories")
+    new_categories = [i for i in categories if i != request.POST.get("category")]
+    contractor.categories = new_categories
+    contractor.save()
+    return HttpResponseRedirect(reverse('dappx:profile'))
+
 def profile(request):
     new_client_info, new_contractor_info = {}, {}
     print("yea")

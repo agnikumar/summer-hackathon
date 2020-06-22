@@ -15,4 +15,5 @@ urlpatterns=[
     url(r'^search/$', views.search,name='search'),
     url(r'^friends/$', views.friends,name='friends'),
 url(r'^add_category/$', views.add_category,name='add_category'),
+url(r'^remove_category/$', views.remove_category,name='remove_category'),
 ]

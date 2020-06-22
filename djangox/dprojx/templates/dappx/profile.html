@@ -46,6 +46,20 @@
         <br>
           <input type="submit" name="" value="Submit">
         </form>
+        <br>
+            <form enctype="multipart/form-data" method="POST" action="{% url 'dappx:remove_category' %}">
+          {% csrf_token %}
+        <div class="form-group">
+          <label class="col-sm-4 control-label" for="{{ key }}">Remove Category : </label>
+        <select class="form-control" id="exampleFormControlSelect2" name="category">
+          {% for category in categories %}
+          <option>{{category}}</option>
+          {% endfor %}
+        </select>
+      </div>
+        <br>
+          <input type="submit" name="" value="Submit">
+        </form>
 
 
     </div>
