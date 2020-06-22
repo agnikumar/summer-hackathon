@@ -20,15 +20,17 @@ for path in csvs:
       spamreader = csv.reader(csvfile)
       count = 0
       for row in spamreader:
-        if count > 0:
-          group, created = Group.objects.get_or_create(name='Contractor')
-          user = User(username="contractor"+str(count))
-          user.set_password("test")
-          user.save()
-          user.groups.add(group)
-          contractor = Contractor.create(user=user, name=row[0], business_id=row[1], address=row[2], city=row[3], state=row[4], postal_code=int(row[5]), stars = float(row[6]), review_count = int(float(row[7])), categories=row[8].split(","))
-          contractor.save()
-          print(count)
-          if count == 25:
-            break
-        count += 1
+        try:
+          if count > 0:
+            group, created = Group.objects.get_or_create(name='Contractor')
+            user = User(username="t_contractor"+str(count))
+            user.set_password("test")
+            user.save()
+            user.groups.add(group)
+            contractor = Contractor.create(user=user, name=row[0], business_id=row[1], address=row[2], city=row[3], state=row[4], postal_code=int(row[5]), stars = float(row[6]), review_count = int(float(row[7])), categories=row[8].split(","))
+            contractor.save()
+            print(count)
+            print(row[8].split(","))
+          count += 1
+        except Exception as e:
+          print(e)
