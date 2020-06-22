@@ -12,6 +12,7 @@ import datetime
 
 from dappx.recommender import *
 import os
+import random
 
 def index(request):
     return render(request,'dappx/index.html')
@@ -229,5 +230,8 @@ def notes(request):
 
 def friends(request):
     friends = getattr(Client.objects.get(user=request.user), "friends")
-    return render(request, 'dappx/friends.html', {"friends":friends})
+    #rand_int = random.randint(1,16)
+    #profile_pic_path = 'images/friends/' +  str(rand_int) + '.png'
+    profile_pic_path = 'images/profile-pic.jpg'
+    return render(request, 'dappx/friends.html', {"friends":friends, "profile_pic_path":profile_pic_path})
 

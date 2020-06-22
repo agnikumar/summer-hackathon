@@ -12,7 +12,7 @@
 .grid-container {
   display: grid;
   grid-gap: 10px;
-  grid-template-columns: auto auto auto auto;
+  grid-template-columns: auto auto auto;
   /*background-color: #2196F3;*/
   padding: 10px;
 }
@@ -100,7 +100,10 @@
 <div class="grid-container">
   {% for friend in friends %}
   <div class="grid-item">
-  {{ friend }}
+     {% autoescape off %}
+    <img src="{% static profile_pic_path %}" style="width:300px; height:300px"/> 
+    {% endautoescape %}
+  <br>{{ friend }}<br>
   </div>
     {% endfor %}
 
