@@ -9,3 +9,4 @@ recommender/yelp_dataset/
 
 # data
 *.csv
+*.sqlite3
