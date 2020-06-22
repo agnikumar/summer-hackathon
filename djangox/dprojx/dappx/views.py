@@ -237,7 +237,8 @@ def friends(request):
     friends = getattr(Client.objects.get(user=request.user), "friends")
     friends_stripped = list(map(str.strip, friends))
     friends_names_map = list(map(dict_friends.get, friends_stripped))
-    friends_names = ['' if x is None else x for x in friends_names_map] 
+    #friends_names = ['' if x is None else x for x in friends_names_map] 
+    friends_names = [i for i in friends_names_map if i]
     print(friends_stripped)
     print(friends_names)
     #rand_int = random.randint(1,16)
