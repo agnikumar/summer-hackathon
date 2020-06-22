@@ -135,7 +135,7 @@ def info(request):
         client = Client.objects.create(user=user, name=name, state=state, city=city, postal_code=postal_code)
         client.save()
     else:
-        contractor = Contractor.objects.create(user=user, name=name, state=state, city=city, postal_code=postal_code, business_id=business_id, address=address, stars=0, review_count=0, categories=[])
+        contractor = Contractor.objects.create(user=user, name=name, state=state, city=city, postal_code=postal_code, business_id=business_id, address=address, covid_safety=0, review_count=0, categories=[])
         contractor.save()
 
     print("Created")
