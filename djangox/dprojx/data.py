@@ -11,7 +11,7 @@ import csv
 from dappx.models import Contractor 
 from django.contrib.auth.models import User, Group, Permission
 
-csvs = ['dappx/data/contractor_data.csv']      # Csv file path  
+csvs = ['contractor_data.csv']      # Csv file path  
 
 for path in csvs:
   with open(path, newline='') as csvfile:

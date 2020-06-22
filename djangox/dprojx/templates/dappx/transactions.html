@@ -52,9 +52,9 @@
 		<table class = "gfg">
                        {% for transaction in transactions %} 
 			<tr> 
-				<td class = "geeks">{{transaction.client}}</td> 
-				<td class = "geeks">{{transaction.date}}</td> 
-				<td>${{transaction.payment}}</td> 
+				<td style="background-color:white" class = "geeks">{{transaction.client}}</td> 
+				<td style="background-color:white" class = "geeks">{{transaction.date}}</td> 
+				<td style="background-color:white">${{transaction.payment}}</td> 
 			</tr> 
                        {% endfor %}
 		</table> 
