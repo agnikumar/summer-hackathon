@@ -4,6 +4,25 @@ from django_mysql.models import ListCharField
 
 # Create your models here.
 
+class RecTransaction(models.Model):
+  business_id = models.CharField(max_length=80)
+  name = models.CharField(max_length=80)
+  address = models.CharField(max_length=80)
+  city = models.CharField(max_length=80)
+  state = models.CharField(max_length=2)
+  postal_code = models.IntegerField()
+  latitude = models.FloatField()
+  longitude = models.FloatField()
+  stars = models.FloatField()
+  review_count = models.FloatField()
+  categories = ListCharField(base_field=models.CharField(max_length=80), max_length=10000)
+  review_id = models.CharField(max_length=80)
+  user_id = models.CharField(max_length=80)
+  review_stars = models.FloatField()
+  text = models.CharField(max_length=1000)
+  friends = ListCharField(base_field=models.CharField(max_length=80), max_length=10000)
+
+
 class UserProfileInfo(models.Model):
   user = models.OneToOneField(User, on_delete=models.CASCADE)
   type_choices = [("CL", "Client"), ("CO", "Contractor")]
