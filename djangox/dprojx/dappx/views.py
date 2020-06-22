@@ -11,7 +11,7 @@ from dappx.models import Client, Contractor, Transaction
 import datetime
 
 from dappx.recommender import *
-from dappx.test import * # for testing purposes 
+import os
 
 def index(request):
     return render(request,'dappx/index.html')
@@ -45,6 +45,11 @@ def payments(request):
     else:
         return render(request, 'dappx/payments.html')
 
+#data_path = 'data/yelp_network_data.csv'
+data_path = open(os.path.dirname(os.path.realpath(__file__)) + '/data/yelp_network_data.csv', "r")
+network_df = get_network_df(data_path) # global
+network_df_list = get_network_df_list(network_df) # global
+
 @login_required
 def search(request):
     vals = Contractor.objects.values_list("categories", flat=True).distinct()
@@ -53,13 +58,19 @@ def search(request):
     #############################
     submitted = False
     output = ''
+    selected_category = ''
     if request.method == 'POST':
         # calling recommender model
         submitted = True
-        output = display_df() # from test.py
-        #return render(request, 'dappx/search.html', {'categories': values, 'output':output})
+        client = Client.objects.get(user=request.user)
+        user_id = str(getattr(client, "uid")) 
+        print('USER ID:', user_id)
+        category = request.POST['dropdown']
+        k = 20
+        output = to_html(recommend(network_df, network_df_list, user_id, category, k))
+        selected_category = category
     #############################
-    return render(request, 'dappx/search.html', {'categories': values, 'output':output, 'submitted':submitted})
+    return render(request, 'dappx/search.html', {'categories': values, 'output':output, 'submitted':submitted, 'selected_category': selected_category})
 
 @login_required
 def special(request):
@@ -219,14 +230,4 @@ def notes(request):
 def friends(request):
     friends = getattr(Client.objects.get(user=request.user), "friends")
     return render(request, 'dappx/friends.html', {"friends":friends})
-
-'''
-def search(request):
-    submitted = False
-    #if request.method == 'POST':
-        # calling recommender model
-        #submitted = True
-        #print(test.print_word("hi"))
-    return render(request, 'dappx/search.html')
-'''
 

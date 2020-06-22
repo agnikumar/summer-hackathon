@@ -10,8 +10,8 @@ from math import radians, cos, sin, asin, sqrt
 # pd.options.mode.chained_assignment = None
 
 # loading network data
-def get_network_df(csv_path):
-    network_df = pd.read_csv('yelp_dataset/yelp_network_data.csv')
+def get_network_df(data_path):
+    network_df = pd.read_csv(data_path)
     return network_df
 
 def get_network_df_list(network_df):
@@ -65,10 +65,8 @@ def recommend(network_df, network_df_list, user_id, category, k):
     recommended = sorted_data[['name', 'address', 'city', 'state', 'postal_code', 'stars', 'review_count']].head(k)
     return recommended.groupby(['name', 'address', 'city', 'state', 'postal_code']).mean().sort_values(by=['stars'], ascending=False).reset_index()
 
-# example run
-# user_id = 'L498DJb5YDAtoqgv9thWCg'
-# category = 'Home Services'
-# k = 10
-# output = recommend(user_id, category, k)
-# print(output.shape)
-# print(output)
+def to_html(results):
+    results.columns = ['Name', 'Address', 'City', 'State', 'Zip', 'COVID-19 Safety', 'Reviews']
+    results['Reviews'] = results['Reviews'].astype(int)
+    df_html = results.to_html(index=False, col_space='10.1vw')
+    return df_html
