@@ -152,6 +152,22 @@ def user_login(request):
     else:
         return render(request, 'dappx/login.html', {})
 
+def add_friends(request):
+    client = Client.objects.get(user=request.user)
+    categories = getattr(client, "friends")
+    new_categories = categories + [request.POST.get("friend")]
+    client.friends = new_categories
+    client.save()
+    return HttpResponseRedirect(reverse('dappx:friends'))
+
+def remove_friends(request):
+    client = Client.objects.get(user=request.user)
+    categories = getattr(client, "friends")
+    new_categories = [i for i in categories if i != request.POST.get("friend")]
+    client.friends = new_categories
+    client.save()
+    return HttpResponseRedirect(reverse('dappx:friends'))
+
 def add_category(request):
     contractor = Contractor.objects.get(user=request.user)
     categories = getattr(contractor, "categories")
@@ -201,7 +217,8 @@ def notes(request):
     return render(request, 'dappx/notes.html')
 
 def friends(request):
-    return render(request, 'dappx/friends.html')
+    friends = getattr(Client.objects.get(user=request.user), "friends")
+    return render(request, 'dappx/friends.html', {"friends":friends})
 
 '''
 def search(request):

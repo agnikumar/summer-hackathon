@@ -81,76 +81,29 @@
 </head>
 <body>
 
-<button class="button button1">Add friends</button>
+<form enctype="multipart/form-data" method="POST" action="{% url 'dappx:add_friends' %}">
+          {% csrf_token %}
+<input style="position:center" type="friend" name="friend" placeholder="Add a username"><br><br>
+<input type="submit" name="" value="Add Friend">
+</form><br>
+
+<form enctype="multipart/form-data" method="POST" action="{% url 'dappx:remove_friends' %}">
+          {% csrf_token %}
+<input style="position:center" type="friend" name="friend" placeholder="Add a username"><br><br>
+<input type="submit" name="" value="Remove Friend">
+</form>
 <!-- ======================================================= --> 
 
 
 </br>
 </br>
 <div class="grid-container">
+  {% for friend in friends %}
   <div class="grid-item">
-	<img src="{% static 'images/friends/1.png' %}" style="width:131px; height:209px"/>
-	<br>Noah<br>❎</div>
+  {{ friend }}
+  </div>
+    {% endfor %}
 
-  <div class="grid-item">
-  	<img src="{% static 'images/friends/2.png' %}" style="width:131px; height:209px"/>
-  <br>Sophia<br>❎</div>
-
-  <div class="grid-item">
-  	<img src="{% static 'images/friends/3.png' %}" style="width:131px; height:209px"/>
-  <br>Liam<br>❎</div>
-
-  <div class="grid-item">
-  	<img src="{% static 'images/friends/4.png' %}" style="width:131px; height:209px"/>
-  <br>Emma<br>❎</div>
-
-  <div class="grid-item">
-  	<img src="{% static 'images/friends/5.png' %}" style="width:131px; height:209px"/>
-  <br>Olivia<br>❎</div>
-
-  <div class="grid-item">
-  	<img src="{% static 'images/friends/6.png' %}" style="width:131px; height:209px"/>
-  <br>William<br>❎</div>  
-
-  <div class="grid-item">
-  	<img src="{% static 'images/friends/7.png' %}" style="width:131px; height:209px"/>
-  <br>Isabella<br>❎</div>
-
-  <div class="grid-item">
-  	<img src="{% static 'images/friends/8.png' %}" style="width:131px; height:209px"/>
-  <br>Mason<br>❎</div>
-
-  <div class="grid-item">
-  	<img src="{% static 'images/friends/9.png' %}" style="width:131px; height:209px"/>
-  <br>James<br>❎</div>  
-
-  <div class="grid-item">
-  	<img src="{% static 'images/friends/10.png' %}" style="width:131px; height:209px"/>
-  <br>Ava<br>❎</div> 
-
-  <div class="grid-item">
-  	<img src="{% static 'images/friends/11.png' %}" style="width:131px; height:209px"/>
-  <br>Benjamin<br>❎</div>  
-
-  <div class="grid-item">
-  	<img src="{% static 'images/friends/12.png' %}" style="width:131px; height:209px"/>
-  <br>Mia<br>❎</div>  
-
-  <div class="grid-item">
-  	<img src="{% static 'images/friends/13.png' %}" style="width:131px; height:209px"/>
-  <br>Emily<br>❎</div>  
-
-  <div class="grid-item">
-  	<img src="{% static 'images/friends/14.png' %}" style="width:131px; height:209px"/>
-  <br>Jacob<br>❎</div>  
-
-  <div class="grid-item">
-  	<img src="{% static 'images/friends/15.png' %}" style="width:131px; height:209px"/>
-  <br>Abigail<br>❎</div>  
-
-  <div class="grid-item">
-  	<img src="{% static 'images/friends/16.png' %}" style="width:131px; height:209px"/>
-  <br>Edward<br>❎</div>   
 </div>
 
 </body>
