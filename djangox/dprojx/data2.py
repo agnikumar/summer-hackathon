@@ -12,7 +12,7 @@ from dappx.models import Client
 from django.contrib.auth.models import User, Group, Permission
 from django.contrib.contenttypes.models import ContentType
 
-csvs = ['dappx/data/client_data.csv']      # Csv file path  
+csvs = ['client_data.csv']      # Csv file path  
 
 for path in csvs:
   with open(path, newline='') as csvfile:
