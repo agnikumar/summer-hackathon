@@ -2,11 +2,17 @@
 {% load static %}
 {% block body_block %}
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<body style="background-image: url('{% static 'images/bg.jpg' %}'); 
+      height: 125%; background-position: center; background-repeat: no-repeat; background-size: cover;">
+
 {% if request.user.groups.all.0.name == 'Client' %}
 
 
   <div class="container">
-    <div class="jumbotron">
+    <div class="jumbotron" style="border:1px solid black;">
         <h3>Client Profile Information</h3><br>
           {% for key, value in client_info.items %}
             <div class="form-group">
@@ -22,7 +28,7 @@
 {% else %}
 
   <div class="container">
-    <div class="jumbotron">
+    <div class="jumbotron" style="border:1px solid black;">
         <h3>Contractor Profile Information</h3><br>
           {% for key, value in contractor_info.items %}
             <div class="form-group">
@@ -67,5 +73,8 @@
 
 
 {% endif %}
+
+</body>
+</html>
 
 {% endblock %}

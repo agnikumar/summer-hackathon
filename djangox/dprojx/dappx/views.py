@@ -68,7 +68,12 @@ def search(request):
         print('USER ID:', user_id)
         category = request.POST['dropdown']
         k = 20
-        output = to_html(recommend(network_df, network_df_list, user_id, category, k))
+        
+        try:
+            output = to_html(recommend(network_df, network_df_list, user_id, category, k))
+        except ValueError:
+            pass
+        
         selected_category = category
     #############################
     return render(request, 'dappx/search.html', {'categories': values, 'output':output, 'submitted':submitted, 'selected_category': selected_category})
