@@ -48,8 +48,8 @@ def payments(request):
 @login_required
 def search(request):
     vals = Contractor.objects.values_list("categories", flat=True).distinct()
-    values = [x[0] for x in vals]
-    print(values)
+    values = [x[0] for x in vals if len(x) > 0 and x[0] not in ["plumbing", "extermination"]]
+    values = sorted(list(set(values)))
     #############################
     submitted = False
     output = ''
@@ -152,8 +152,38 @@ def user_login(request):
     else:
         return render(request, 'dappx/login.html', {})
 
+def add_category(request):
+    contractor = Contractor.objects.get(user=request.user)
+    categories = getattr(contractor, "categories")
+    new_categories = categories + [request.POST.get("category")]
+    contractor.categories = new_categories
+    contractor.save()
+    return HttpResponseRedirect(reverse('dappx:profile'))
+
 def profile(request):
-    return render(request, 'dappx/profile.html')
+    new_client_info, new_contractor_info = {}, {}
+    print("yea")
+    try:
+        cl = Client.objects.get(user=request.user)
+        client_fields = [field.name for field in Client._meta.get_fields()]
+        client_info = [getattr(cl, i) for i in client_fields]
+        new_client_info = {client_fields[i]:client_info[i] for i in range(len(client_fields)) if client_fields[i] != "user"}
+    except Exception as e:
+        pass
+    try:
+        contractor = Contractor.objects.get(user=request.user)
+        contractor_fields = [field.name for field in Contractor._meta.get_fields()]
+        print(contractor_fields)
+        contractor_info = [getattr(contractor, i) for i in contractor_fields]
+        new_contractor_info = {contractor_fields[i]:contractor_info[i] for i in range(len(contractor_fields)) if contractor_fields[i] != "user"}
+    except Exception as e:
+        print(e)
+    vals = Contractor.objects.values_list("categories", flat=True).distinct()
+    print(vals)
+    values = [x[0] for x in vals if len(x) > 0 and x[0] not in ["plumbing", "extermination"]]
+    values = sorted(list(set(values)))
+    return render(request, 'dappx/profile.html', {'client_info': new_client_info, 'contractor_info': new_contractor_info,
+                                                  'categories':values})
 
 def transactions(request):
     transactions = Transaction.objects.filter(contractor=request.user.username)

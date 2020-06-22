@@ -2,131 +2,56 @@
 {% load static %}
 {% block body_block %}
 
-<!DOCTYPE html>
-<html>
-<title>W3.CSS Template</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
-</style>
-<body>
+{% if request.user.groups.all.0.name == 'Client' %}
 
-<!-- Page Container -->
-<div class="w3-content w3-margin-top" style="max-width:1400px;">
 
-  <!-- The Grid -->
-  <div class="w3-row-padding">
-  
-    <!-- Left Column -->
-    <div class="w3-third">
-    
-      <div class="w3-white w3-text-grey w3-card-4">
-        <div class="w3-display-container">
-          <!-- <img src="profile.jpeg" style="width:100%" alt="Avatar"> -->
-          {% load static %} <img src="{% static 'images/facebook-anonymous-man.png' %}" style="width:100%"/>
-          <div class="w3-display-bottomleft w3-container w3-text-black">
-            <!-- <h2>Name</h2> -->
-            <h2><span class="w3-tag w3-teal w3-round">Jacob Bunyard</span></h2>
-          </div>
-        </div>
-        <div class="w3-container">
-          <br/>
-          <p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>Maintenance Handyman</p>
-          <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i>Mesa, AZ</p>
-          <!-- <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i>ex@mail.com</p> -->
-          <p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i>(602) 316-9187</p> 
-          <hr>
-
-          <p class="w3-large"><b><i class="fa fa-asterisk fa-fw w3-margin-right w3-text-teal"></i>Ratings</b></p>
-          <p>Customer Satisfaction</p>
-          <div class="w3-light-grey w3-round-xlarge w3-small">
-            <div class="w3-container w3-center w3-round-xlarge w3-teal" style="width:90%">90%</div>
-          </div>
-          <br/>
-          <p>COVID-19 Safety</p>
-          <div class="w3-light-grey w3-round-xlarge w3-small">
-            <div class="w3-container w3-center w3-round-xlarge w3-teal" style="width:80%">
-              <div class="w3-center w3-text-white">80%</div>
+  <div class="container">
+    <div class="jumbotron">
+        <h3>Client Profile Information</h3><br>
+          {% for key, value in client_info.items %}
+            <div class="form-group">
+            <label class="col-sm-4 control-label" for="{{ key }}">{{ key }} : </label>
+            <div class="col-sm-8">
+                {{ value }}
+            </div> <br>
             </div>
-          </div>
-          <br>
-
-          <p class="w3-large w3-text-theme"><b><i class="fa fa-globe fa-fw w3-margin-right w3-text-teal"></i>Languages</b></p>
-          <p>English</p>
-          <div class="w3-light-grey w3-round-xlarge">
-            <div class="w3-round-xlarge w3-teal" style="height:24px;width:100%"></div>
-          </div>
-          <br/>
-          <p>Spanish</p>
-          <div class="w3-light-grey w3-round-xlarge">
-            <div class="w3-round-xlarge w3-teal" style="height:24px;width:55%"></div>
-          </div>
-          <br>
-        </div>
-      </div><br>
-
-    <!-- End Left Column -->
+          {% endfor %} <br>
     </div>
-
-    <!-- Right Column -->
-    <div class="w3-twothird">
-    
-      <div class="w3-container w3-card w3-white w3-margin-bottom">
-        <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Work Experience</h2>
-        <div class="w3-container">
-          <h5 class="w3-opacity"><b>Maintenance Handyman / Use My Guy Services</b></h5>
-          <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Jan 2015 - <span class="w3-tag w3-teal w3-round">Current</span></h6>
-          <p><ul style="padding-left:30px;list-style-type:disc">
-			  <li>Execute the cleaning and maintenance work schedule provided by the Manager</li>
-			  <li>Assist with trash pickup including putting the containers out on specified days and after pickup, bring the containers in, and make sure area is left clean</li>
-			  <li>Ensure all safety precautions are followed while performing the work</li>
-			  <li>Assist the Manager in the overseeing of service contractors, building repair, and maintenance contractors of the community association</li>
-			  <li>Perform landscaping tasks and exterior maintenance</li>
-			  <li>Flexibility to respond to a range of different work situations</li>
-			  <li>Follow all policies and standard operating procedures as instructed by Management</li>
-		  </ul></p>
-          <hr>
-        </div>
-        <div class="w3-container">
-          <h5 class="w3-opacity"><b>Handyman / One Call Home Handyman</b></h5>
-          <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Mar 2012 - Dec 2014</h6>
-          <p><ul style="padding-left:30px;list-style-type:disc">
-			  <li>Work in accordance with work Instructions, safe working practices, and method statements ensuring relevant paperwork is completed in an accurate timely manner</li>
-			  <li>To establish, develop, and maintain a close and productive working relationships</li>
-			  <li>Perform repair and painting maintenance as directed by the chief engineer or work order requested by building personnel</li>
-			  <li>Providing support to Facilities Management in all moves and changes</li>
-			  <li>To participate within an out of normal working hours emergency call out rota and be flexible outside of core working hours</li>
-			  <li>Carrying out routine and minor repair and improvement works</li>
-		  </ul></p>
-          <hr>
-        </div>
-        <div class="w3-container">
-          <h5 class="w3-opacity"><b>Housing Assistant / Big City House Calls</b></h5>
-          <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Jun 2010 - Mar 2012</h6>
-          <p><ul style="padding-left:30px;list-style-type:disc">
-			  <li>Manage repair work on walls, floors, doors, and wood work</li>
-			  <li>Make sure that fire detection and protection systems are in perfect working order</li>
-			  <li>Check and perform maintenance activities on alarm systems</li>
-			  <li>Hire and train maintenance workers in order to assign them different maintenance tasks</li>
-		  </ul></p>
-		  <br>
-        </div>
-      </div>
-
-    <!-- End Right Column -->
-    </div>
-    
-  <!-- End Grid -->
   </div>
-  
-  <!-- End Page Container -->
-</div>
 
-</body>
-</html>
+{% else %}
+
+  <div class="container">
+    <div class="jumbotron">
+        <h3>Contractor Profile Information</h3><br>
+          {% for key, value in contractor_info.items %}
+            <div class="form-group">
+            <label class="col-sm-4 control-label" for="{{ key }}">{{ key }} : </label>
+            <div class="col-sm-8">
+                {{ value }}
+            </div> <br>
+            </div>
+          {% endfor %} <br>
+
+      <form enctype="multipart/form-data" method="POST" action="{% url 'dappx:add_category' %}">
+          {% csrf_token %}
+        <div class="form-group">
+          <label class="col-sm-4 control-label" for="{{ key }}">Add Category : </label>
+        <select class="form-control" id="exampleFormControlSelect1" name="category">
+          {% for category in categories %}
+          <option>{{category}}</option>
+          {% endfor %}
+        </select>
+      </div>
+        <br>
+          <input type="submit" name="" value="Submit">
+        </form>
+
+
+    </div>
+  </div>
+
+
+{% endif %}
 
 {% endblock %}

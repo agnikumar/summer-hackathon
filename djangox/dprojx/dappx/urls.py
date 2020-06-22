@@ -14,4 +14,5 @@ urlpatterns=[
     url(r'^info/$', views.info,name='info'),
     url(r'^search/$', views.search,name='search'),
     url(r'^friends/$', views.friends,name='friends'),
+url(r'^add_category/$', views.add_category,name='add_category'),
 ]
