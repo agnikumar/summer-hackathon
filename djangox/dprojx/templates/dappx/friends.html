@@ -84,13 +84,13 @@
 <form enctype="multipart/form-data" method="POST" action="{% url 'dappx:add_friends' %}">
           {% csrf_token %}
 <input style="position:center" type="friend" name="friend" placeholder="Add a username"><br><br>
-<input type="submit" name="" value="Add Friend">
+<input type="submit" name="" value="Add friend">
 </form><br>
 
 <form enctype="multipart/form-data" method="POST" action="{% url 'dappx:remove_friends' %}">
           {% csrf_token %}
 <input style="position:center" type="friend" name="friend" placeholder="Add a username"><br><br>
-<input type="submit" name="" value="Remove Friend">
+<input type="submit" name="" value="Remove friend">
 </form>
 <!-- ======================================================= --> 
 
@@ -98,7 +98,7 @@
 </br>
 </br>
 <div class="grid-container">
-  {% for friend in friends %}
+  {% for friend in friends_names %}
   <div class="grid-item">
      {% autoescape off %}
     <img src="{% static profile_pic_path %}" style="width:300px; height:300px"/> 
