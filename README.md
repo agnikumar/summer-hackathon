@@ -16,6 +16,7 @@ SmallTalk is a service aiding small businesses in gaining publicity, particularl
 * Run `python manage.py migrate`
 * Run `python manage.py shell`, followed by `exec(open('data.py').read())` and `exec(open('data2.py').read())`
 * Run `python manage.py runserver` to start the application
+* Navigate to `localhost:8000` to see the service in action
 
 ## Screenshots
 <p align="center">
